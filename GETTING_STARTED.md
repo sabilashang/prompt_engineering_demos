@@ -28,8 +28,16 @@ Then:
 
 ```bash
 # 1. Setup environment
-cp env.example .env
-# Edit .env with your API key
+# Create .env file (Windows PowerShell)
+New-Item .env -ItemType File
+
+# Or (Linux/Mac)
+touch .env
+
+# Then edit .env with your API key:
+# OPENROUTER_API_KEY=your_actual_key_here
+# OPENROUTER_API_URL=https://openrouter.ai/api/v1/chat/completions
+# DEFAULT_MODEL=mistralai/mistral-7b-instruct
 
 # 2. Install Python deps
 pip install -r ml_data_cleaning_demo/requirements.txt
@@ -158,8 +166,8 @@ nano backend_api_generation_demo/routes/sample_route.json
 
 Edit `.env`:
 ```env
-DEFAULT_MODEL=gpt-4
-# or any model from OpenRouter
+DEFAULT_MODEL=mistralai/mixtral-8x7b-instruct
+# or any model from OpenRouter (see FREE_MODELS.md for free options)
 ```
 
 ### Adjust Summary Types
@@ -172,10 +180,10 @@ Edit `note_summarizer_app/main.py` to add custom summary styles.
 |----------|--------------|
 | `GETTING_STARTED.md` | You are here! Start here |
 | `README.md` | Overview and main docs |
-| `SETUP.md` | Detailed installation steps |
-| `QUICK_REFERENCE.md` | Command cheat sheet |
+| `STARTUP_GUIDE.md` | Startup instructions and order |
+| `API_FIXES.md` | API troubleshooting guide |
+| `FREE_MODELS.md` | Free models reference |
 | `ARCHITECTURE.md` | Technical deep-dive |
-| `PROJECT_SUMMARY.md` | What was built |
 | Demo READMEs | Specific demo details |
 
 ## 🎓 Learning Path

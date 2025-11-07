@@ -51,32 +51,45 @@ python main.py
 ### 3️⃣ **Open Presentation UI** (Session Content)
 **When to start:** After dashboard is running, open this for the session
 
-```bash
-# Option 1: Direct file (simpler)
-cd session_content
-# Then open index.html in your browser
+**⚠️ IMPORTANT:** You MUST use a web server (not file://) for the presentation to work correctly!
 
-# Option 2: Using a web server (recommended)
+```bash
+# Using a web server (REQUIRED)
 cd session_content
 python -m http.server 8000
 # Then open http://localhost:8000
 ```
 
-**Access:** 
-- Direct: `file:///path/to/session_content/index.html`
-- Web server: http://localhost:8000
+**Access:** http://localhost:8000
+
+**Why web server?** The presentation loads content dynamically using JavaScript `fetch()`, which requires a web server due to browser security (CORS).
 
 ---
 
 ## 🎯 Quick Start for Session
 
-### Minimal Setup (Dashboard + Presentation)
+### Option 1: Start All Servers Script (Easiest!)
+
+**Windows:**
+```bash
+start_all_servers.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x start_all_servers.sh
+./start_all_servers.sh
+```
+
+This starts all servers automatically and opens the presentation in your browser!
+
+### Option 2: Minimal Setup (Dashboard + Presentation)
 ```bash
 # Terminal 1: Dashboard
 cd dashboard
 npm start
 
-# Terminal 2: Presentation (optional web server)
+# Terminal 2: Presentation (REQUIRED - use web server)
 cd session_content
 python -m http.server 8000
 ```
@@ -85,7 +98,7 @@ Then open:
 - Dashboard: http://localhost:3000
 - Presentation: http://localhost:8000
 
-### Full Setup (All Services)
+### Option 3: Full Setup (All Services Manually)
 ```bash
 # Terminal 1: Dashboard
 cd dashboard
@@ -95,14 +108,28 @@ npm start
 cd ml_data_cleaning_demo
 python app.py
 
-# Terminal 3: Note Summarizer (for Section 5)
+# Terminal 3: ML Model Evaluation (for Section 3)
+cd ml_model_eval_demo
+python app.py
+
+# Terminal 4: Note Summarizer (for Section 5)
 cd note_summarizer_app
 python main.py
 
-# Terminal 4: Presentation (optional web server)
+# Terminal 5: Mobile UI Generation (for Section 4)
+cd mobile_ui_generation_demo
+node server.js
+
+# Terminal 6: Backend API Generation (for Section 4)
+cd backend_api_generation_demo
+node server.js
+
+# Terminal 7: Presentation (REQUIRED - use web server)
 cd session_content
 python -m http.server 8000
 ```
+
+**Or use the `start_all_servers.bat/sh` script to start all at once!**
 
 ---
 

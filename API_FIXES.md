@@ -4,7 +4,7 @@
 
 ### 1. **Invalid Model Name**
 - **Problem:** Default model was `gpt-oss-20b-free` which is not a valid OpenRouter model
-- **Fix:** Changed default to `openai/gpt-3.5-turbo` (valid OpenRouter model)
+- **Fix:** Changed default to `mistralai/mistral-7b-instruct` (free, open-source OpenRouter model)
 - **Affected Files:**
   - `ml_data_cleaning_demo/app.py`
   - `ml_model_eval_demo/app.py`
