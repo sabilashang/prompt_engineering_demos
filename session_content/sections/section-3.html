@@ -1,0 +1,171 @@
+<div class="content-wrapper">
+    <div class="goal-box">
+        <h3>🎯 Goal</h3>
+        <p>Show how LLMs speed up ML workflows and automate coding steps in data science pipelines.</p>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Data Preparation</h2>
+        <div class="use-case-card">
+            <h4>🧹 Automated Data Cleaning</h4>
+            <p>Use prompts to generate data cleaning scripts in Python/Pandas. Transform messy data into clean,
+                analysis-ready datasets.</p>
+            <div class="code-example">
+                <div class="code-header">Example Prompt:</div>
+                <pre><code>"Clean this CSV by removing missing rows and converting date columns. Generate Python code using Pandas."</code></pre>
+            </div>
+            <div class="use-case-benefits">
+                <span class="tag">Automated</span>
+                <span class="tag">Reproducible</span>
+                <span class="tag">Customizable</span>
+            </div>
+            <div style="margin-top: 1rem; padding: 1rem; background: #f0f4ff; border-radius: 0.5rem;">
+                <strong>💡 What the AI does:</strong>
+                <ul style="margin-top: 0.5rem; padding-left: 1.5rem; font-size: 0.9rem; color: #666;">
+                    <li>Identifies data quality issues</li>
+                    <li>Generates cleaning code automatically</li>
+                    <li>Handles edge cases and data types</li>
+                    <li>Creates reproducible scripts</li>
+                </ul>
+            </div>
+        </div>
+        <div class="use-case-card">
+            <h4>🏷️ Label Generation</h4>
+            <p>Use text classification prompts to generate or validate labels for datasets. Perfect for creating
+                training data.</p>
+            <div class="example-small">
+                <em>"Classify these customer reviews as positive, negative, or neutral."</em>
+            </div>
+            <div style="margin-top: 1rem; padding: 1rem; background: #fff5f5; border-radius: 0.5rem;">
+                <strong>📊 Use Cases:</strong>
+                <ul style="margin-top: 0.5rem; padding-left: 1.5rem; font-size: 0.9rem; color: #666;">
+                    <li>Sentiment analysis datasets</li>
+                    <li>Content categorization</li>
+                    <li>Spam detection labeling</li>
+                    <li>Quality assurance validation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Feature Engineering</h2>
+        <div class="feature-box">
+            <h4>💡 AI-Powered Feature Suggestions</h4>
+            <p>Use LLMs to suggest new derived features based on your dataset and problem domain.</p>
+            <div class="code-example">
+                <div class="code-header">Example Prompt:</div>
+                <pre><code>"Suggest 5 potential engineered features for predicting customer churn based on transaction history and user behavior."</code></pre>
+            </div>
+            <div class="benefits-list">
+                <li>Domain-aware suggestions</li>
+                <li>Time-saving feature ideation</li>
+                <li>Code generation for feature implementation</li>
+            </div>
+        </div>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Model Evaluation & Explanation</h2>
+        <div class="evaluation-grid">
+            <div class="evaluation-card">
+                <h4>📊 Model Summaries</h4>
+                <p>Generate comprehensive model performance summaries from evaluation metrics.</p>
+                <div class="example-small">
+                    <em>Prompt → "Summarize this model's performance metrics in plain English."</em>
+                </div>
+            </div>
+            <div class="evaluation-card">
+                <h4>🔍 Feature Importance</h4>
+                <p>Explain feature importance like a human analyst would.</p>
+                <div class="example-small">
+                    <em>Prompt → "Explain why feature X is most important for this prediction task."</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Documentation Automation</h2>
+        <div class="doc-box">
+            <h4>📝 Automated ML Documentation</h4>
+            <p>Generate comprehensive documentation for ML models and pipelines.</p>
+            <div class="code-example">
+                <div class="code-header">Example Prompt:</div>
+                <pre><code>"Write a README explaining this ML model as if to a junior engineer. Include setup, usage, and interpretation of results."</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h3>🎬 Try the Demos Now!</h3>
+        <p style="margin-bottom: 20px; color: #666;">Click the buttons below to open interactive demos. All demos have
+            simple, intuitive interfaces with buttons.</p>
+        <div class="demo-cards">
+            <div class="demo-card">
+                <h4>🧹 Data Cleaning Demo</h4>
+                <p>Upload a CSV file and watch AI clean it automatically. Simple drag-and-drop interface!</p>
+                <p style="font-size: 0.85rem; color: #666; margin: 10px 0;"><strong>Direct Link:</strong> <a
+                        href="http://localhost:5001" target="_blank" style="color: #667eea;">http://localhost:5001</a>
+                </p>
+                <button class="btn btn-demo" onclick="showDemo('ml_data_cleaning_demo')">🚀 Launch Demo</button>
+            </div>
+            <div class="demo-card">
+                <h4>📊 Model Evaluation Demo</h4>
+                <p>One-click model evaluation with AI-powered insights and visual metrics.</p>
+                <p style="font-size: 0.85rem; color: #666; margin: 10px 0;"><strong>Direct Link:</strong> <a
+                        href="http://localhost:5003" target="_blank" style="color: #f5576c;">http://localhost:5003</a>
+                </p>
+                <button class="btn btn-demo" onclick="showDemo('ml_model_eval_demo')">🚀 Launch Demo</button>
+            </div>
+            <div class="demo-card">
+                <h4>📈 Visualization Prompt</h4>
+                <p>Generate matplotlib/seaborn visualization code from descriptions.</p>
+                <button class="btn btn-demo" onclick="showDemo('visualization')">Try Example</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="workflow-diagram">
+        <h3>🔄 ML Workflow with Prompt Engineering</h3>
+        <div class="workflow-steps">
+            <div class="workflow-step">1. Data Cleaning<br /><small>Prompt → Code</small></div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">2. Feature Engineering<br /><small>Prompt → Suggestions</small></div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">3. Model Training<br /><small>Traditional ML</small></div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">4. Evaluation<br /><small>Prompt → Analysis</small></div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-step">5. Documentation<br /><small>Prompt → README</small></div>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1.5rem; background: #f8f9ff; border-radius: 0.5rem;">
+            <h4 style="margin-bottom: 1rem;">⏱️ Time Savings at Each Stage:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                <div style="text-align: center; padding: 1rem; background: white; border-radius: 0.5rem;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">60%</div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Data Cleaning</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: white; border-radius: 0.5rem;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #f5576c;">50%</div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Feature Engineering</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: white; border-radius: 0.5rem;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #10b981;">70%</div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Evaluation</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: white; border-radius: 0.5rem;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #f59e0b;">80%</div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Documentation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="key-takeaway">
+        <h3>✨ Key Takeaway</h3>
+        <p>Prompt engineering can automate 50-70% of the coding tasks in ML workflows, from data preparation to
+            documentation. This allows ML engineers to focus on model design and business logic rather than boilerplate
+            code.</p>
+    </div>
+</div>

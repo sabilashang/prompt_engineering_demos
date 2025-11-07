@@ -1,0 +1,27 @@
+{
+    "name": "mobile_ui_generation_demo",
+    "version": "1.0.0",
+    "description": "Generate React Native UI components using LLM prompts",
+    "main": "generate_ui.js",
+    "scripts": {
+        "start": "node server.js",
+        "generate": "node generate_ui.js",
+        "server": "node server.js"
+    },
+    "keywords": [
+        "react-native",
+        "ui-generation",
+        "llm",
+        "openrouter",
+        "prompt-engineering"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}

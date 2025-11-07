@@ -1,0 +1,234 @@
+<div class="content-wrapper">
+    <div class="goal-box">
+        <h3>🎯 Goal</h3>
+        <p>Show how to chain or operationalize prompts at scale for production systems.</p>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Prompt Chaining</h2>
+        <div class="chaining-box">
+            <h4>🔗 Breaking Complex Tasks into Steps</h4>
+            <p>Chain multiple prompts together where each output feeds into the next prompt.</p>
+            <div class="chain-diagram">
+                <div class="chain-step">
+                    <div class="chain-number">1</div>
+                    <div class="chain-content">
+                        <strong>UI Prompt</strong>
+                        <p>Generate UI components</p>
+                    </div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step">
+                    <div class="chain-number">2</div>
+                    <div class="chain-content">
+                        <strong>API Prompt</strong>
+                        <p>Generate backend API</p>
+                    </div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step">
+                    <div class="chain-number">3</div>
+                    <div class="chain-content">
+                        <strong>Integration Prompt</strong>
+                        <p>Connect UI + API</p>
+                    </div>
+                </div>
+            </div>
+            <div class="code-example">
+                <div class="code-header">Example Chain:</div>
+                <pre><code>Step 1: "Generate React Native login screen"
+Step 2: "Create Express.js login API endpoint"
+Step 3: "Connect the login screen to the API endpoint"</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Agentic Prompting</h2>
+        <div class="agentic-box">
+            <h4>🤖 Multi-Step AI Agents</h4>
+            <p>Agents that perform reasoning, call APIs, and self-correct through multiple steps.</p>
+            <div class="agent-features">
+                <div class="agent-feature">
+                    <span class="feature-icon">🧠</span>
+                    <div>
+                        <strong>Reasoning</strong>
+                        <p>Think through problems step by step</p>
+                    </div>
+                </div>
+                <div class="agent-feature">
+                    <span class="feature-icon">🔌</span>
+                    <div>
+                        <strong>API Calls</strong>
+                        <p>Interact with external services</p>
+                    </div>
+                </div>
+                <div class="agent-feature">
+                    <span class="feature-icon">🔄</span>
+                    <div>
+                        <strong>Self-Correction</strong>
+                        <p>Retry and refine based on results</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tools-box">
+                <h4>🛠️ Popular Tools:</h4>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <strong>LangChain</strong>
+                        <p>Framework for building LLM applications</p>
+                    </div>
+                    <div class="tool-card">
+                        <strong>LlamaIndex</strong>
+                        <p>Data framework for LLM applications</p>
+                    </div>
+                    <div class="tool-card">
+                        <strong>Custom Agents</strong>
+                        <p>Build your own workflow automation with AI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 LLM as Backend Service</h2>
+        <div class="backend-service-box">
+            <h4>⚡ LLM-Generated Microservices</h4>
+            <p>Use LLMs to create and manage backend services dynamically.</p>
+            <div class="code-example">
+                <div class="code-header">Example Flow:</div>
+                <pre><code>"Prompt → API endpoint → JSON response in app"
+
+User speaks → AI converts to API call → Mobile app displays data</code></pre>
+            </div>
+            <div class="service-benefits">
+                <div class="benefit-item">
+                    <strong>Dynamic Endpoints</strong>
+                    <p>Generate API endpoints on-demand from prompts</p>
+                </div>
+                <div class="benefit-item">
+                    <strong>Natural Language Interface</strong>
+                    <p>Users interact with backend using natural language</p>
+                </div>
+                <div class="benefit-item">
+                    <strong>Rapid Prototyping</strong>
+                    <p>Build and test backend services quickly</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="advanced-example">
+        <h3>💡 Advanced Example: Voice-to-API Pipeline</h3>
+        <div class="pipeline-diagram">
+            <div class="pipeline-step">
+                <div class="pipeline-icon">🎤</div>
+                <div class="pipeline-content">
+                    <strong>User Speaks</strong>
+                    <p>"Show me sales data for Q4"</p>
+                </div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">
+                <div class="pipeline-icon">🤖</div>
+                <div class="pipeline-content">
+                    <strong>AI Converts</strong>
+                    <p>Natural language → API call</p>
+                </div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step">
+                <div class="pipeline-icon">📱</div>
+                <div class="pipeline-content">
+                    <strong>App Displays</strong>
+                    <p>Formatted data visualization</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scaling-considerations">
+        <h3>⚖️ Scaling Considerations</h3>
+        <div class="considerations-grid">
+            <div class="consideration-card">
+                <h4>💰 Cost Management</h4>
+                <p>Monitor API usage and implement caching strategies</p>
+            </div>
+            <div class="consideration-card">
+                <h4>⚡ Performance</h4>
+                <p>Optimize prompts for faster response times</p>
+            </div>
+            <div class="consideration-card">
+                <h4>🔒 Security</h4>
+                <p>Validate and sanitize all prompt inputs</p>
+            </div>
+            <div class="consideration-card">
+                <h4>📊 Monitoring</h4>
+                <p>Track prompt performance and success rates</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="real-world-examples" style="margin-top: 2rem;">
+        <h3>🌍 Real-World Applications</h3>
+        <div class="applications-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #667eea;">
+                <h4 style="color: #667eea; margin-bottom: 0.5rem;">🛒 E-Commerce</h4>
+                <p style="font-size: 0.9rem; color: #666;">Product descriptions, customer support, inventory management
+                </p>
+            </div>
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #f5576c;">
+                <h4 style="color: #f5576c; margin-bottom: 0.5rem;">🏥 Healthcare</h4>
+                <p style="font-size: 0.9rem; color: #666;">Medical report summarization, patient data analysis</p>
+            </div>
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #10b981;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">📚 Education</h4>
+                <p style="font-size: 0.9rem; color: #666;">Content generation, personalized learning, assessment</p>
+            </div>
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #f59e0b;">
+                <h4 style="color: #f59e0b; margin-bottom: 0.5rem;">💼 Business</h4>
+                <p style="font-size: 0.9rem; color: #666;">Report generation, data analysis, automation</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="implementation-tips"
+        style="margin-top: 2rem; background: #f8f9ff; padding: 1.5rem; border-radius: 0.5rem;">
+        <h3>💡 Implementation Tips</h3>
+        <div style="margin-top: 1rem;">
+            <div style="margin-bottom: 1rem; padding: 1rem; background: white; border-radius: 0.5rem;">
+                <strong>1. Start Small</strong>
+                <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Begin with simple prompt chains (2-3
+                    steps) before building complex agentic systems.</p>
+            </div>
+            <div style="margin-bottom: 1rem; padding: 1rem; background: white; border-radius: 0.5rem;">
+                <strong>2. Monitor Costs</strong>
+                <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Track API usage and implement caching to
+                    reduce costs in production.</p>
+            </div>
+            <div style="margin-bottom: 1rem; padding: 1rem; background: white; border-radius: 0.5rem;">
+                <strong>3. Error Handling</strong>
+                <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Always implement retry logic and fallback
+                    mechanisms for API calls.</p>
+            </div>
+            <div style="padding: 1rem; background: white; border-radius: 0.5rem;">
+                <strong>4. Test Thoroughly</strong>
+                <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Test prompt chains with various inputs to
+                    ensure reliability.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="key-takeaway">
+        <h3>✨ Key Takeaway</h3>
+        <p>Advanced prompt automation transforms LLMs from simple chatbots into powerful development tools. By chaining
+            prompts, using agents, and treating LLMs as backend services, you can build sophisticated systems that adapt
+            and scale with natural language interfaces.</p>
+    </div>
+</div>

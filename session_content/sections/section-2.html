@@ -1,0 +1,180 @@
+<div class="content-wrapper">
+    <div class="goal-box">
+        <h3>🎯 Goal</h3>
+        <p>Learn the key frameworks and patterns to control AI outputs effectively.</p>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Prompt Structuring Basics</h2>
+        <div class="formula-card">
+            <h3>The RICC Formula</h3>
+            <div class="formula-steps">
+                <div class="formula-step">
+                    <span class="step-number">R</span>
+                    <div>
+                        <strong>Role</strong>
+                        <p>Define who the AI is (e.g., "You are a data scientist...")</p>
+                    </div>
+                </div>
+                <div class="formula-step">
+                    <span class="step-number">I</span>
+                    <div>
+                        <strong>Input</strong>
+                        <p>Provide the data or context (e.g., "given this CSV...")</p>
+                    </div>
+                </div>
+                <div class="formula-step">
+                    <span class="step-number">C</span>
+                    <div>
+                        <strong>Context</strong>
+                        <p>Set the background and requirements</p>
+                    </div>
+                </div>
+                <div class="formula-step">
+                    <span class="step-number">C</span>
+                    <div>
+                        <strong>Constraints</strong>
+                        <p>Specify limitations and output format</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="structure-diagram">
+            <p><strong>Full Structure:</strong> Role → Task → Context → Constraints → Output Format</p>
+        </div>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Prompt Types</h2>
+        <div class="prompt-types-grid">
+            <div class="prompt-type-card">
+                <h4>📝 Instruction-based</h4>
+                <p>Direct command prompting</p>
+                <div class="example-small">
+                    <em>"Generate a Python function to sort a list"</em>
+                </div>
+            </div>
+            <div class="prompt-type-card">
+                <h4>🎯 Few-shot Prompting</h4>
+                <p>Show examples to guide output</p>
+                <div class="example-small">
+                    <em>Example 1: ... → Example 2: ... → Generate similar</em>
+                </div>
+            </div>
+            <div class="prompt-type-card">
+                <h4>🧠 Chain-of-Thought</h4>
+                <p>Step-by-step reasoning</p>
+                <div class="example-small">
+                    <em>"Let's think step by step..."</em>
+                </div>
+            </div>
+            <div class="prompt-type-card">
+                <h4>🔄 ReAct Prompting</h4>
+                <p>Reasoning + Acting</p>
+                <div class="example-small">
+                    <em>Think → Act → Observe → Repeat</em>
+                </div>
+            </div>
+            <div class="prompt-type-card">
+                <h4>🛠️ Tool-use Prompting</h4>
+                <p>API calls, function invocation</p>
+                <div class="example-small">
+                    <em>Use calculator, search API, etc.</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="subtopic">
+        <h2>🔹 Prompt Engineering Best Practices</h2>
+        <div class="best-practices-list">
+            <div class="practice-item">
+                <span class="practice-icon">✅</span>
+                <div>
+                    <strong>Use explicit formatting</strong>
+                    <p>Specify JSON, XML, markdown, or code blocks in your output requirements.</p>
+                </div>
+            </div>
+            <div class="practice-item">
+                <span class="practice-icon">🎨</span>
+                <div>
+                    <strong>Specify tone and depth</strong>
+                    <p>Tell the AI how technical, casual, or detailed the response should be.</p>
+                </div>
+            </div>
+            <div class="practice-item">
+                <span class="practice-icon">🔄</span>
+                <div>
+                    <strong>Iterative refinement</strong>
+                    <p>Use follow-up prompts: "Regenerate with these changes..." or "Make it more concise..."</p>
+                </div>
+            </div>
+            <div class="practice-item">
+                <span class="practice-icon">📋</span>
+                <div>
+                    <strong>Break complex tasks</strong>
+                    <p>Divide large requests into smaller, focused prompts for better results.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-box">
+        <h3>🎬 Interactive Example: Prompt → JSON Output</h3>
+        <div class="code-example">
+            <div class="code-header">Prompt:</div>
+            <pre><code>"Create an app config JSON for a Todo app with title, color theme, and database schema."</code></pre>
+            <div class="code-result">
+                <strong>Expected Output:</strong> Structured JSON with all specified fields.
+            </div>
+        </div>
+        <div class="example-breakdown"
+            style="margin-top: 20px; padding: 1.5rem; background: #f8f9ff; border-radius: 0.5rem;">
+            <h4>🔍 Breaking Down This Prompt (RICC Formula):</h4>
+            <div style="margin-top: 1rem;">
+                <p><strong>Role:</strong> Implicit - "You are a developer"</p>
+                <p><strong>Input:</strong> "Todo app" - the context</p>
+                <p><strong>Context:</strong> "app config JSON" - what we need</p>
+                <p><strong>Constraints:</strong> "title, color theme, and database schema" - specific requirements</p>
+            </div>
+        </div>
+        <button class="btn btn-demo" onclick="showDemo('json_generation')">Try This Demo</button>
+    </div>
+
+    <div class="practical-examples" style="margin-top: 2rem;">
+        <h3>💼 Practical Examples by Use Case</h3>
+        <div class="examples-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h4 style="color: #667eea; margin-bottom: 0.5rem;">📊 Data Analysis</h4>
+                <div class="code-example" style="margin-top: 1rem; padding: 1rem;">
+                    <pre
+                        style="font-size: 0.85rem;"><code>"Analyze this sales data and identify top 3 trends. Format as bullet points."</code></pre>
+                </div>
+            </div>
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h4 style="color: #f5576c; margin-bottom: 0.5rem;">💻 Code Generation</h4>
+                <div class="code-example" style="margin-top: 1rem; padding: 1rem;">
+                    <pre
+                        style="font-size: 0.85rem;"><code>"Create a Python function to validate email addresses with regex."</code></pre>
+                </div>
+            </div>
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">📝 Documentation</h4>
+                <div class="code-example" style="margin-top: 1rem; padding: 1rem;">
+                    <pre
+                        style="font-size: 0.85rem;"><code>"Write API documentation for this endpoint in Markdown format."</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="key-takeaway">
+        <h3>✨ Key Takeaway</h3>
+        <p>Structure is everything. A well-formed prompt using RICC formula produces significantly better results than
+            vague requests. Practice with different prompt types to find what works best for your use case.</p>
+    </div>
+</div>

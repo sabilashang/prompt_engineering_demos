@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering Demos - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <h1>Prompt Engineering Demos</h1>
+            </div>
+            <div class="header-actions">
+                <button id="darkModeToggle" class="btn-icon" title="Toggle Dark Mode">🌙</button>
+                <button id="refreshBtn" class="btn-icon" title="Refresh Demos">🔄</button>
+            </div>
+        </div>
+        <p class="header-subtitle">Interactive LLM-Powered Development Tools</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Demo Cards Grid -->
+        <section class="demos-grid" id="demosGrid">
+            <!-- ML Data Cleaning Demo -->
+            <div class="demo-card" data-demo="ml_data_cleaning_demo">
+                <div class="demo-icon">🧹</div>
+                <h2 class="demo-title">ML Data Cleaning</h2>
+                <p class="demo-description">
+                    Automated CSV data cleaning and standardization using LLM. 
+                    Upload messy data and get cleaned results instantly.
+                </p>
+                <div class="demo-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">CSV</span>
+                </div>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="runDemo('ml_data_cleaning_demo')">
+                        Run Demo
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewCode('ml_data_cleaning_demo', 'app.py')">
+                        View Code
+                    </button>
+                    <button class="btn btn-info" onclick="viewReadme('ml_data_cleaning_demo')">
+                        README
+                    </button>
+                </div>
+                <div class="demo-status">
+                    <span class="status-indicator" id="status-ml_data_cleaning_demo">●</span>
+                    <span class="status-text">Not Running</span>
+                </div>
+            </div>
+
+            <!-- ML Model Evaluation Demo -->
+            <div class="demo-card" data-demo="ml_model_eval_demo">
+                <div class="demo-icon">📊</div>
+                <h2 class="demo-title">ML Model Evaluation</h2>
+                <p class="demo-description">
+                    Intelligent model performance analysis with automated insights and recommendations.
+                </p>
+                <div class="demo-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">CLI</span>
+                    <span class="tag">Analytics</span>
+                </div>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="runDemo('ml_model_eval_demo')">
+                        Run Demo
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewCode('ml_model_eval_demo', 'evaluate.py')">
+                        View Code
+                    </button>
+                    <button class="btn btn-info" onclick="viewReadme('ml_model_eval_demo')">
+                        README
+                    </button>
+                </div>
+                <div class="demo-status">
+                    <span class="status-indicator" id="status-ml_model_eval_demo">●</span>
+                    <span class="status-text">Not Running</span>
+                </div>
+            </div>
+
+            <!-- Mobile UI Generation Demo -->
+            <div class="demo-card" data-demo="mobile_ui_generation_demo">
+                <div class="demo-icon">📱</div>
+                <h2 class="demo-title">Mobile UI Generation</h2>
+                <p class="demo-description">
+                    Generate React Native components from text descriptions. 
+                    Accelerate mobile development with AI.
+                </p>
+                <div class="demo-tags">
+                    <span class="tag">Node.js</span>
+                    <span class="tag">React Native</span>
+                    <span class="tag">UI</span>
+                </div>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="runDemo('mobile_ui_generation_demo')">
+                        Run Demo
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewCode('mobile_ui_generation_demo', 'generate_ui.js')">
+                        View Code
+                    </button>
+                    <button class="btn btn-info" onclick="viewReadme('mobile_ui_generation_demo')">
+                        README
+                    </button>
+                </div>
+                <div class="demo-status">
+                    <span class="status-indicator" id="status-mobile_ui_generation_demo">●</span>
+                    <span class="status-text">Not Running</span>
+                </div>
+            </div>
+
+            <!-- Backend API Generation Demo -->
+            <div class="demo-card" data-demo="backend_api_generation_demo">
+                <div class="demo-icon">🔧</div>
+                <h2 class="demo-title">Backend API Generation</h2>
+                <p class="demo-description">
+                    Create Express.js REST APIs from specifications. 
+                    Complete with auth, validation, and error handling.
+                </p>
+                <div class="demo-tags">
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Express</span>
+                    <span class="tag">REST</span>
+                </div>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="runDemo('backend_api_generation_demo')">
+                        Run Demo
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewCode('backend_api_generation_demo', 'generate_api.js')">
+                        View Code
+                    </button>
+                    <button class="btn btn-info" onclick="viewReadme('backend_api_generation_demo')">
+                        README
+                    </button>
+                </div>
+                <div class="demo-status">
+                    <span class="status-indicator" id="status-backend_api_generation_demo">●</span>
+                    <span class="status-text">Not Running</span>
+                </div>
+            </div>
+
+            <!-- Note Summarizer App -->
+            <div class="demo-card" data-demo="note_summarizer_app">
+                <div class="demo-icon">📝</div>
+                <h2 class="demo-title">Note Summarizer</h2>
+                <p class="demo-description">
+                    Interactive web app for text summarization. 
+                    Multiple summary types with beautiful UI.
+                </p>
+                <div class="demo-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">Web App</span>
+                </div>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="openDemo('note_summarizer_app')">
+                        Open App
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewCode('note_summarizer_app', 'main.py')">
+                        View Code
+                    </button>
+                    <button class="btn btn-info" onclick="viewReadme('note_summarizer_app')">
+                        README
+                    </button>
+                </div>
+                <div class="demo-status">
+                    <span class="status-indicator" id="status-note_summarizer_app">●</span>
+                    <span class="status-text">Not Running</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Viewer Modal -->
+        <div id="codeModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle">Code Viewer</h2>
+                    <div class="modal-actions">
+                        <button class="btn btn-small" onclick="copyCode()">Copy</button>
+                        <button class="btn btn-small" onclick="saveCode()">Save Changes</button>
+                        <button class="btn-close" onclick="closeModal()">✕</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="editor-toolbar">
+                        <span id="fileName" class="file-name"></span>
+                        <span id="lineCount" class="line-count"></span>
+                    </div>
+                    <textarea id="codeEditor" class="code-editor" spellcheck="false"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output Terminal -->
+        <section class="terminal" id="terminal" style="display: none;">
+            <div class="terminal-header">
+                <h3>Output</h3>
+                <div class="terminal-actions">
+                    <button class="btn btn-small" onclick="clearTerminal()">Clear</button>
+                    <button class="btn btn-small" onclick="closeTerminal()">Close</button>
+                </div>
+            </div>
+            <div class="terminal-body">
+                <pre id="terminalOutput"></pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            Powered by <strong>OpenRouter API</strong> | 
+            <a href="https://github.com" target="_blank">GitHub</a> | 
+            <a href="/api/info" target="_blank">API Info</a>
+        </p>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <!-- JavaScript -->
+    <script src="dashboard.js"></script>
+</body>
+</html>
+

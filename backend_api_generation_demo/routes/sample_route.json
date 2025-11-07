@@ -1,0 +1,61 @@
+{
+    "resource": "User Management",
+    "description": "Complete user authentication and profile management system",
+    "routes": [
+        {
+            "method": "POST",
+            "path": "/register",
+            "description": "Register a new user with email and password"
+        },
+        {
+            "method": "POST",
+            "path": "/login",
+            "description": "Authenticate user and return JWT token"
+        },
+        {
+            "method": "GET",
+            "path": "/profile",
+            "description": "Get authenticated user's profile (protected)"
+        },
+        {
+            "method": "PUT",
+            "path": "/profile",
+            "description": "Update authenticated user's profile (protected)"
+        },
+        {
+            "method": "POST",
+            "path": "/logout",
+            "description": "Logout user and invalidate token (protected)"
+        },
+        {
+            "method": "POST",
+            "path": "/forgot-password",
+            "description": "Request password reset email"
+        },
+        {
+            "method": "POST",
+            "path": "/reset-password",
+            "description": "Reset password with token from email"
+        }
+    ],
+    "requirements": [
+        "JWT authentication for protected routes",
+        "Password hashing with bcrypt",
+        "Email validation",
+        "Password strength requirements (min 8 chars, uppercase, lowercase, number)",
+        "Rate limiting for login attempts",
+        "Token expiration (24 hours)",
+        "Secure HTTP-only cookie support"
+    ],
+    "features": [
+        "Input validation middleware using express-validator",
+        "Async/await error handling",
+        "Centralized error responses",
+        "Token refresh mechanism",
+        "User role management (admin, user)",
+        "Account activation via email",
+        "Profile picture upload support"
+    ],
+    "database": "MongoDB with Mongoose",
+    "notes": "Include comments for database integration and middleware setup"
+}

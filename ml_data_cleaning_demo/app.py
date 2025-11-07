@@ -1,0 +1,172 @@
+"""
+ML Data Cleaning Demo - Flask API
+Uploads a CSV, cleans it using LLM, and returns the cleaned version
+"""
+
+import os
+import json
+import requests
+from flask import Flask, request, jsonify, send_file, render_template
+from flask_cors import CORS
+from dotenv import load_dotenv
+from werkzeug.utils import secure_filename
+import io
+
+# Load environment variables
+load_dotenv(dotenv_path='../.env')
+
+app = Flask(__name__)
+CORS(app)
+
+# Configuration
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'csv'}
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+
+# OpenRouter API Configuration
+OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
+OPENROUTER_API_URL = os.getenv(
+    'OPENROUTER_API_URL', 'https://openrouter.ai/api/v1/chat/completions')
+DEFAULT_MODEL = os.getenv('DEFAULT_MODEL', 'mistralai/mistral-7b-instruct')
+
+
+def allowed_file(filename):
+    """Check if file extension is allowed"""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def call_openrouter_api(prompt, csv_content):
+    """Call OpenRouter API to clean CSV data"""
+    try:
+        headers = {
+            'Authorization': f'Bearer {OPENROUTER_API_KEY}',
+            'Content-Type': 'application/json',
+            'HTTP-Referer': 'http://localhost:5001',
+            'X-Title': 'ML Data Cleaning Demo'
+        }
+
+        full_prompt = f"{prompt}\n\nCSV Data:\n{csv_content}\n\nReturn only the cleaned CSV data without any explanation."
+
+        payload = {
+            'model': DEFAULT_MODEL,
+            'messages': [
+                {'role': 'user', 'content': full_prompt}
+            ]
+        }
+
+        response = requests.post(
+            OPENROUTER_API_URL, headers=headers, json=payload, timeout=60)
+
+        # Check for errors and provide detailed error message
+        if not response.ok:
+            error_detail = response.text
+            try:
+                error_json = response.json()
+                error_detail = error_json.get(
+                    'error', {}).get('message', error_detail)
+            except:
+                pass
+            raise Exception(
+                f"API request failed: {response.status_code} {response.reason} - {error_detail}")
+
+        result = response.json()
+
+        # Check if response has expected structure
+        if 'choices' not in result or len(result['choices']) == 0:
+            raise Exception(
+                f"Unexpected API response format: {json.dumps(result, indent=2)}")
+
+        cleaned_data = result['choices'][0]['message']['content']
+
+        # Remove markdown code blocks if present
+        cleaned_data = cleaned_data.replace(
+            '```csv', '').replace('```', '').strip()
+
+        return cleaned_data
+
+    except requests.exceptions.RequestException as e:
+        error_msg = str(e)
+        if hasattr(e, 'response') and e.response is not None:
+            try:
+                error_detail = e.response.json()
+                error_msg = f"{error_msg} - {json.dumps(error_detail, indent=2)}"
+            except:
+                error_msg = f"{error_msg} - {e.response.text}"
+        raise Exception(f"API request failed: {error_msg}")
+    except KeyError as e:
+        raise Exception(f"Unexpected API response format: {str(e)}")
+
+
+@app.route('/')
+def index():
+    """Main page with file upload form"""
+    return render_template('index.html')
+
+
+@app.route('/clean', methods=['POST'])
+def clean_csv():
+    """Clean uploaded CSV file using LLM"""
+
+    # Check if API key is configured
+    if not OPENROUTER_API_KEY or OPENROUTER_API_KEY == 'your_openrouter_api_key_here':
+        return jsonify({
+            'error': 'OpenRouter API key not configured. Please set OPENROUTER_API_KEY in .env file'
+        }), 500
+
+    # Check if file is in request
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file provided'}), 400
+
+    file = request.files['file']
+
+    # Check if file is selected
+    if file.filename == '':
+        return jsonify({'error': 'No file selected'}), 400
+
+    # Validate file type
+    if not allowed_file(file.filename):
+        return jsonify({'error': 'Only CSV files are allowed'}), 400
+
+    try:
+        # Read CSV content
+        csv_content = file.read().decode('utf-8')
+
+        # Default cleaning prompt
+        prompt = """Clean this CSV by:
+1. Removing rows with null/empty values
+2. Standardizing date columns to YYYY-MM-DD format
+3. Removing duplicate rows
+4. Trimming whitespace from all fields
+5. Ensuring consistent data types in each column"""
+
+        # Call API to clean data
+        cleaned_csv = call_openrouter_api(prompt, csv_content)
+
+        # Return cleaned CSV as downloadable file
+        return send_file(
+            io.BytesIO(cleaned_csv.encode('utf-8')),
+            mimetype='text/csv',
+            as_attachment=True,
+            download_name='cleaned_data.csv'
+        )
+
+    except Exception as e:
+        return jsonify({
+            'error': f'Failed to clean CSV: {str(e)}'
+        }), 500
+
+
+if __name__ == '__main__':
+    print("🚀 ML Data Cleaning Demo starting...")
+    print(f"📡 API Endpoint: {OPENROUTER_API_URL}")
+    print(f"🤖 Model: {DEFAULT_MODEL}")
+    print(
+        f"🔑 API Key configured: {'Yes' if OPENROUTER_API_KEY and OPENROUTER_API_KEY != 'your_openrouter_api_key_here' else 'No'}")
+    print("\n✅ Server running on http://localhost:5001")
+    print("\nUsage: POST a CSV file to /clean endpoint")
+    print("Example: curl -X POST -F 'file=@sample_data.csv' http://localhost:5001/clean -o cleaned.csv\n")
+
+    app.run(debug=True, port=5001)

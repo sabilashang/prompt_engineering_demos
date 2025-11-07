@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering Session - Interactive Presentation</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body>
+    <!-- Navigation Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>📚 Session Agenda</h2>
+            <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#section-1" class="nav-link active" data-section="1">1. Introduction (15 min)</a></li>
+            <li><a href="#section-2" class="nav-link" data-section="2">2. Core Techniques (20 min)</a></li>
+            <li><a href="#section-3" class="nav-link" data-section="3">3. ML Applications (25 min)</a></li>
+            <li><a href="#section-4" class="nav-link" data-section="4">4. Mobile Apps (25 min)</a></li>
+            <li><a href="#section-5" class="nav-link" data-section="5">5. Hands-On Exercise (20 min)</a></li>
+            <li><a href="#section-6" class="nav-link" data-section="6">6. Advanced Automation (10 min)</a></li>
+            <li><a href="#section-7" class="nav-link" data-section="7">7. Wrap-Up & Q&A (10 min)</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text"><span id="currentSection">1</span> / 7</p>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Section 1: Introduction -->
+        <section id="section-1" class="content-section active">
+            <div class="section-header">
+                <span class="section-number">1</span>
+                <h1>Introduction to Prompt Engineering</h1>
+                <p class="section-duration">⏱️ 15 minutes</p>
+            </div>
+            <div class="section-content" id="section-1-content">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="section-footer">
+                <button class="btn btn-secondary" onclick="previousSection()" disabled>← Previous</button>
+                <button class="btn btn-primary" onclick="nextSection()">Next →</button>
+            </div>
+        </section>
+
+        <!-- Section 2: Core Techniques -->
+        <section id="section-2" class="content-section">
+            <div class="section-header">
+                <span class="section-number">2</span>
+                <h1>Core Prompting Techniques & Patterns</h1>
+                <p class="section-duration">⏱️ 20 minutes</p>
+            </div>
+            <div class="section-content" id="section-2-content">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="section-footer">
+                <button class="btn btn-secondary" onclick="previousSection()">← Previous</button>
+                <button class="btn btn-primary" onclick="nextSection()">Next →</button>
+            </div>
+        </section>
+
+        <!-- Section 3: ML Applications -->
+        <section id="section-3" class="content-section">
+            <div class="section-header">
+                <span class="section-number">3</span>
+                <h1>Prompt Engineering in Machine Learning</h1>
+                <p class="section-duration">⏱️ 25 minutes</p>
+            </div>
+            <div class="section-content" id="section-3-content">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="section-footer">
+                <button class="btn btn-secondary" onclick="previousSection()">← Previous</button>
+                <button class="btn btn-primary" onclick="nextSection()">Next →</button>
+            </div>
+        </section>
+
+        <!-- Section 4: Mobile Apps -->
+        <section id="section-4" class="content-section">
+            <div class="section-header">
+                <span class="section-number">4</span>
+                <h1>Prompt Engineering in Mobile App Development</h1>
+                <p class="section-duration">⏱️ 25 minutes</p>
+            </div>
+            <div class="section-content" id="section-4-content">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="section-footer">
+                <button class="btn btn-secondary" onclick="previousSection()">← Previous</button>
+                <button class="btn btn-primary" onclick="nextSection()">Next →</button>
+            </div>
+        </section>
+
+        <!-- Section 5: Hands-On Exercise -->
+        <section id="section-5" class="content-section">
+            <div class="section-header">
+                <span class="section-number">5</span>
+                <h1>Hands-On Mini Exercise</h1>
+                <p class="section-duration">⏱️ 20 minutes</p>
+            </div>
+            <div class="section-content" id="section-5-content">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="section-footer">
+                <button class="btn btn-secondary" onclick="previousSection()">← Previous</button>
+                <button class="btn btn-primary" onclick="nextSection()">Next →</button>
+            </div>
+        </section>
+
+        <!-- Section 6: Advanced Automation -->
+        <section id="section-6" class="content-section">
+            <div class="section-header">
+                <span class="section-number">6</span>
+                <h1>Advanced Prompt Automation</h1>
+                <p class="section-duration">⏱️ 10 minutes</p>
+            </div>
+            <div class="section-content" id="section-6-content">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="section-footer">
+                <button class="btn btn-secondary" onclick="previousSection()">← Previous</button>
+                <button class="btn btn-primary" onclick="nextSection()">Next →</button>
+            </div>
+        </section>
+
+        <!-- Section 7: Wrap-Up -->
+        <section id="section-7" class="content-section">
+            <div class="section-header">
+                <span class="section-number">7</span>
+                <h1>Wrap-Up & Q&A</h1>
+                <p class="section-duration">⏱️ 10 minutes</p>
+            </div>
+            <div class="section-content" id="section-7-content">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="section-footer">
+                <button class="btn btn-secondary" onclick="previousSection()">← Previous</button>
+                <button class="btn btn-primary" onclick="nextSection()" disabled>Complete ✓</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Launch Demo</h2>
+                <button class="modal-close" onclick="closeDemoModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="openDemoBtn" onclick="openDemo()">Open Demo</button>
+                    <button class="btn btn-secondary" onclick="closeDemoModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="toast" style="display: none;"></div>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

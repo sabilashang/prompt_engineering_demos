@@ -1,0 +1,12 @@
+id,name,email,signup_date,age,status
+1,John Doe,john@example.com,2024-1-5,28,active
+2,Jane Smith,,01/15/2024,32,active
+3,Bob Johnson,bob@example.com,,25,
+4,Alice Williams,alice@example.com,2024/01/20,null,inactive
+5,Charlie Brown,charlie@example.com,2024-01-25,45,active
+6,Jane Smith,,01/15/2024,32,active
+7,  David Lee  ,david@example.com,Jan 30 2024,  29  ,active
+8,Emma Davis,emma@example.com,2024-02-01,35,active
+9,Frank Miller,,,,pending
+10,Grace Taylor,grace@example.com,2024-2-10,27,active
+

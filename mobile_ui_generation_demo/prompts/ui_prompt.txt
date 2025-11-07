@@ -1,0 +1,47 @@
+Generate a complete React Native login screen component with the following requirements:
+
+1. **Component Structure:**
+   - Functional component using React hooks (useState, useEffect)
+   - Named export: LoginScreen
+   - Proper imports for React Native components
+
+2. **UI Elements:**
+   - App title/logo at the top
+   - Email input field with icon
+   - Password input field with show/hide toggle
+   - "Remember Me" checkbox
+   - Login button with loading state
+   - "Forgot Password?" link
+   - "Sign Up" link for new users
+   - Error message display area
+
+3. **Styling:**
+   - Modern, clean design
+   - Use StyleSheet.create()
+   - Responsive layout with flexbox
+   - Professional color scheme (blues and whites)
+   - Proper spacing and padding
+   - Rounded corners for inputs and buttons
+
+4. **Functionality:**
+   - Form validation for email and password
+   - Handle login button press
+   - Show/hide password toggle
+   - Display loading spinner during authentication
+   - Error handling and user feedback
+   - Keyboard-aware scrolling
+
+5. **Firebase Integration:**
+   - Include comments for Firebase auth integration
+   - Placeholder for Firebase signInWithEmailAndPassword
+   - Error handling for authentication failures
+
+6. **Best Practices:**
+   - Use proper React Native components (View, Text, TextInput, TouchableOpacity, etc.)
+   - Add PropTypes or TypeScript types in comments
+   - Include accessibility props
+   - Proper keyboard type for email input
+   - Secure text entry for password
+
+Please generate production-ready code with clear comments explaining each section.
+
