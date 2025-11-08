@@ -1,0 +1,65 @@
+{
+    "resource": "E-commerce Products",
+    "description": "Product catalog management for online store",
+    "routes": [
+        {
+            "method": "GET",
+            "path": "/products",
+            "description": "List all products with filters and pagination"
+        },
+        {
+            "method": "POST",
+            "path": "/products",
+            "description": "Add new product (admin only)"
+        },
+        {
+            "method": "GET",
+            "path": "/products/:id",
+            "description": "Get product details with reviews and related products"
+        },
+        {
+            "method": "PUT",
+            "path": "/products/:id",
+            "description": "Update product information (admin only)"
+        },
+        {
+            "method": "DELETE",
+            "path": "/products/:id",
+            "description": "Delete product (admin only)"
+        },
+        {
+            "method": "POST",
+            "path": "/products/:id/reviews",
+            "description": "Add product review (authenticated users)"
+        },
+        {
+            "method": "POST",
+            "path": "/products/:id/images",
+            "description": "Upload product images (admin only)"
+        },
+        {
+            "method": "PATCH",
+            "path": "/products/:id/stock",
+            "description": "Update stock quantity (admin only)"
+        }
+    ],
+    "requirements": [
+        "Admin authentication and authorization",
+        "Multiple image upload (up to 5 images)",
+        "Price validation (must be positive)",
+        "Stock management",
+        "Category and subcategory support",
+        "Product variants (size, color, etc.)",
+        "Inventory tracking"
+    ],
+    "features": [
+        "Advanced search with filters (price range, category, brand, rating)",
+        "Sort by price, popularity, newest, rating",
+        "Pagination with customizable page size",
+        "Product ratings and reviews system",
+        "Wishlist management",
+        "Low stock alerts",
+        "Discount and promotion support"
+    ],
+    "database": "PostgreSQL with Sequelize"
+}

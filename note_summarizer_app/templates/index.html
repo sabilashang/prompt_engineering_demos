@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Summarizer - AI-Powered Text Summary</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -15,6 +17,10 @@
                 <h1>Note Summarizer</h1>
             </div>
             <p class="subtitle">AI-Powered Text Summarization</p>
+            <p style="font-size: 0.85rem; color: #888; margin-top: 10px;">
+                Creator: <a href="https://github.com/sabilashang" target="_blank"
+                    style="color: #667eea; text-decoration: none;">Sabilashan Ganeshan</a>
+            </p>
         </header>
 
         <!-- Main Content -->
@@ -25,11 +31,8 @@
                     <h2>Your Text</h2>
                     <span id="charCount" class="char-count">0 / 10,000</span>
                 </div>
-                
-                <textarea 
-                    id="inputText" 
-                    class="text-input" 
-                    placeholder="Paste your text here (minimum 50 characters)...
+
+                <textarea id="inputText" class="text-input" placeholder="Paste your text here (minimum 50 characters)...
 
 Try summarizing:
 • Meeting notes
@@ -37,9 +40,7 @@ Try summarizing:
 • Research papers
 • Long emails
 • Documentation
-• Any text content you need condensed!"
-                    maxlength="10000"
-                ></textarea>
+• Any text content you need condensed!" maxlength="10000"></textarea>
 
                 <!-- Summary Type Selection -->
                 <div class="summary-types">
@@ -80,7 +81,7 @@ Try summarizing:
                     <h2>Summary</h2>
                     <button id="copyBtn" class="btn btn-small">Copy</button>
                 </div>
-                
+
                 <div id="summaryOutput" class="summary-output"></div>
 
                 <!-- Stats -->
@@ -109,7 +110,7 @@ Try summarizing:
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Powered by OpenRouter API • <a href="/api/info" target="_blank">API Info</a></p>
+            <p>AI-Powered Summarization • <a href="/api/info" target="_blank">API Info</a></p>
         </footer>
     </div>
 
@@ -132,7 +133,7 @@ Try summarizing:
         inputText.addEventListener('input', () => {
             const length = inputText.value.length;
             charCount.textContent = `${length} / 10,000`;
-            
+
             if (length > 9500) {
                 charCount.style.color = '#e74c3c';
             } else {
@@ -151,7 +152,7 @@ Try summarizing:
             errorMessage.textContent = message;
             errorSection.style.display = 'flex';
             outputSection.style.display = 'none';
-            
+
             setTimeout(() => {
                 errorSection.style.display = 'none';
             }, 5000);
@@ -162,13 +163,13 @@ Try summarizing:
             summaryOutput.textContent = data.summary;
             originalLength.textContent = `${data.original_length} chars`;
             summaryLength.textContent = `${data.summary_length} chars`;
-            
+
             const reduction = Math.round((1 - data.summary_length / data.original_length) * 100);
             reductionPercent.textContent = `${reduction}%`;
-            
+
             outputSection.style.display = 'block';
             errorSection.style.display = 'none';
-            
+
             // Scroll to output
             outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
@@ -176,23 +177,23 @@ Try summarizing:
         // Summarize button click
         summarizeBtn.addEventListener('click', async () => {
             const text = inputText.value.trim();
-            
+
             // Validation
             if (!text) {
                 showError('Please enter some text to summarize');
                 return;
             }
-            
+
             if (text.length < 50) {
                 showError('Text too short. Please provide at least 50 characters.');
                 return;
             }
-            
+
             // Show loading state
             summarizeBtn.disabled = true;
             document.querySelector('.btn-text').style.display = 'none';
             document.querySelector('.btn-loader').style.display = 'inline';
-            
+
             try {
                 const response = await fetch('/summarize', {
                     method: 'POST',
@@ -204,9 +205,9 @@ Try summarizing:
                         summary_type: getSummaryType()
                     })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showSummary(data);
                 } else {
@@ -252,5 +253,5 @@ Try summarizing:
         });
     </script>
 </body>
-</html>
 
+</html>

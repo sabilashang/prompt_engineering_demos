@@ -57,8 +57,8 @@ cd dashboard && npm start
 
 ### 1. Get Your API Key
 
-1. Visit [OpenRouter.ai](https://openrouter.ai/)
-2. Sign up for a free account
+1. Obtain your API key from your provider
+2. Sign up for an account if needed
 3. Get your API key from the dashboard
 4. Add it to your `.env` file
 
@@ -167,7 +167,7 @@ nano backend_api_generation_demo/routes/sample_route.json
 Edit `.env`:
 ```env
 DEFAULT_MODEL=mistralai/mixtral-8x7b-instruct
-# or any model from OpenRouter (see FREE_MODELS.md for free options)
+# or any compatible model (see FREE_MODELS.md for options)
 ```
 
 ### Adjust Summary Types

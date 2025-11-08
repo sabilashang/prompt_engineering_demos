@@ -1,6 +1,9 @@
 /**
  * Backend API Generation Demo - Express Web Server
  * Simple web interface for generating Express.js API routes
+ * 
+ * Creator: Sabilashan Ganeshan
+ * GitHub: https://github.com/sabilashang
  */
 
 const express = require('express');

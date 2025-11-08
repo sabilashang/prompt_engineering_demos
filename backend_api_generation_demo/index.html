@@ -169,23 +169,44 @@
     <div class="container">
         <h1>🔧 Backend API Generation</h1>
         <p class="subtitle">Generate Express.js REST API routes from descriptions</p>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 20px;">
+            Creator: <a href="https://github.com/sabilashang" target="_blank" style="color: #fa709a;">Sabilashan
+                Ganeshan</a>
+        </p>
 
         <div class="example-prompt">
-            <strong>Example:</strong> "Create Express.js routes for user authentication: POST /login, POST /register,
-            GET /profile, and POST /logout. Include JWT authentication and validation."
+            <strong>💡 Quick Start:</strong> Paste JSON from <code>examples/</code> folder or describe your API in plain
+            text.
+            <br><br>
+            <strong>📁 Location:</strong> Open files in <code>backend_api_generation_demo/examples/</code>
         </div>
 
-        <textarea id="promptInput" placeholder="Describe the API endpoints you want to generate..."></textarea>
+        <textarea id="promptInput" placeholder='Paste JSON from examples folder OR describe your API:
+
+Example text prompt:
+"Create Express.js routes for user authentication: POST /login, POST /register, GET /profile with JWT authentication."
+
+Example JSON (from examples folder):
+{
+    "resource": "Blog Posts",
+    "routes": [...],
+    "requirements": [...]
+}'></textarea>
 
         <button class="btn" id="generateBtn">Generate API Code</button>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
             <p>Generating Express.js API code...</p>
+            <p style="font-size: 0.9rem; color: #666;">This may take 10-30 seconds...</p>
         </div>
 
         <div class="result-area" id="resultArea">
-            <h3>✅ Generated Code</h3>
+            <h3>✅ Code Generated Successfully!</h3>
+            <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+                <button class="btn" id="copyBtn" style="flex: 1; background: #10b981;">📋 Copy Code</button>
+                <button class="btn" id="downloadBtn" style="flex: 1; background: #3b82f6;">💾 Download Code</button>
+            </div>
             <div class="code-block" id="codeOutput"></div>
         </div>
 
@@ -199,14 +220,45 @@
         const resultArea = document.getElementById('resultArea');
         const codeOutput = document.getElementById('codeOutput');
         const error = document.getElementById('error');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        let generatedCode = '';
 
         generateBtn.addEventListener('click', async () => {
-            const prompt = promptInput.value.trim();
+            let prompt = promptInput.value.trim();
 
             if (!prompt) {
-                error.textContent = '❌ Please enter a prompt';
+                error.textContent = '❌ Please enter a prompt or paste JSON from examples folder';
                 error.classList.add('show');
                 return;
+            }
+
+            // Check if input is JSON (from examples folder)
+            try {
+                const jsonObj = JSON.parse(prompt);
+                // Convert JSON to descriptive prompt
+                prompt = `Generate Express.js REST API for ${jsonObj.resource || 'API'}\n\n`;
+                prompt += `Description: ${jsonObj.description || ''}\n\n`;
+                prompt += `Routes:\n`;
+                if (jsonObj.routes) {
+                    jsonObj.routes.forEach(route => {
+                        prompt += `- ${route.method} ${route.path}: ${route.description}\n`;
+                    });
+                }
+                if (jsonObj.requirements) {
+                    prompt += `\nRequirements:\n`;
+                    jsonObj.requirements.forEach(req => prompt += `- ${req}\n`);
+                }
+                if (jsonObj.features) {
+                    prompt += `\nFeatures:\n`;
+                    jsonObj.features.forEach(feat => prompt += `- ${feat}\n`);
+                }
+                if (jsonObj.database) {
+                    prompt += `\nDatabase: ${jsonObj.database}\n`;
+                }
+            } catch (e) {
+                // Not JSON, use as plain text prompt
             }
 
             generateBtn.disabled = true;
@@ -229,17 +281,44 @@
                     throw new Error(data.error || 'Generation failed');
                 }
 
-                codeOutput.textContent = data.code;
+                generatedCode = data.code;
+                codeOutput.textContent = generatedCode;
                 loading.classList.remove('show');
                 resultArea.classList.add('show');
                 generateBtn.disabled = false;
 
             } catch (err) {
                 loading.classList.remove('show');
-                error.textContent = `❌ Error: ${err.message}`;
+                error.textContent = `❌ Error: ${err.message}\n\nMake sure you're running from the correct directory:\ncd backend_api_generation_demo\nnode server.js`;
                 error.classList.add('show');
                 generateBtn.disabled = false;
             }
+        });
+
+        // Copy to clipboard
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(generatedCode).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy code');
+            });
+        });
+
+        // Download file
+        downloadBtn.addEventListener('click', () => {
+            const blob = new Blob([generatedCode], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'generated-api.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         });
     </script>
 </body>

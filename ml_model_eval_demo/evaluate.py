@@ -1,6 +1,9 @@
 """
 ML Model Evaluation Demo - CLI Script
 Analyzes model predictions using LLM to provide evaluation summary
+
+Creator: Sabilashan Ganeshan
+GitHub: https://github.com/sabilashang
 """
 
 import os
@@ -54,7 +57,7 @@ def call_openrouter_api(prompt, data):
             ]
         }
 
-        print("\n📡 Calling OpenRouter API...")
+        print("\n📡 Calling API...")
         response = requests.post(
             OPENROUTER_API_URL, headers=headers, json=payload, timeout=60)
         response.raise_for_status()
@@ -101,12 +104,12 @@ def main():
 
     # Check API key
     if not OPENROUTER_API_KEY or OPENROUTER_API_KEY == 'your_openrouter_api_key_here':
-        print("\n❌ Error: OpenRouter API key not configured")
+        print("\n❌ Error: API key not configured")
         print("Please set OPENROUTER_API_KEY in ../.env file")
         return
 
     print(f"\n🔑 API Key: Configured")
-    print(f"🤖 Model: {DEFAULT_MODEL}")
+    print(f"🤖 Model: Configured")
     print(f"📁 Dataset: {filename}")
 
     # Load sample results

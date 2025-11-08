@@ -1,0 +1,72 @@
+{
+    "resource": "Social Media Posts",
+    "description": "Social media platform post management with likes and comments",
+    "routes": [
+        {
+            "method": "GET",
+            "path": "/posts",
+            "description": "Get feed of posts (following users + own posts)"
+        },
+        {
+            "method": "POST",
+            "path": "/posts",
+            "description": "Create new post with text, images, or video"
+        },
+        {
+            "method": "GET",
+            "path": "/posts/:id",
+            "description": "Get single post with comments and likes"
+        },
+        {
+            "method": "PUT",
+            "path": "/posts/:id",
+            "description": "Edit post (author only)"
+        },
+        {
+            "method": "DELETE",
+            "path": "/posts/:id",
+            "description": "Delete post (author only)"
+        },
+        {
+            "method": "POST",
+            "path": "/posts/:id/like",
+            "description": "Like a post"
+        },
+        {
+            "method": "DELETE",
+            "path": "/posts/:id/like",
+            "description": "Unlike a post"
+        },
+        {
+            "method": "POST",
+            "path": "/posts/:id/comments",
+            "description": "Add comment to post"
+        },
+        {
+            "method": "GET",
+            "path": "/users/:username/posts",
+            "description": "Get posts by specific user"
+        }
+    ],
+    "requirements": [
+        "User authentication required for all operations",
+        "Image and video upload support",
+        "Privacy settings (public, friends-only, private)",
+        "Hashtag support and indexing",
+        "Mention support (@username)",
+        "Post reporting system",
+        "Content moderation flags"
+    ],
+    "features": [
+        "Real-time like counter",
+        "Nested comments (replies)",
+        "Post sharing/reposting",
+        "Hashtag trending system",
+        "User tagging in posts",
+        "Infinite scroll pagination",
+        "Sort by newest, popular, trending",
+        "Search posts by hashtag or keyword",
+        "Notification system for likes and comments"
+    ],
+    "database": "MongoDB with Mongoose"
+}

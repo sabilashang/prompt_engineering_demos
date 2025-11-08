@@ -1,0 +1,69 @@
+{
+    "resource": "Booking System",
+    "description": "Appointment and reservation management system",
+    "routes": [
+        {
+            "method": "GET",
+            "path": "/availability",
+            "description": "Get available time slots for a date range"
+        },
+        {
+            "method": "POST",
+            "path": "/bookings",
+            "description": "Create new booking/reservation"
+        },
+        {
+            "method": "GET",
+            "path": "/bookings",
+            "description": "List user's bookings with filters"
+        },
+        {
+            "method": "GET",
+            "path": "/bookings/:id",
+            "description": "Get booking details"
+        },
+        {
+            "method": "PUT",
+            "path": "/bookings/:id",
+            "description": "Update booking (reschedule)"
+        },
+        {
+            "method": "DELETE",
+            "path": "/bookings/:id",
+            "description": "Cancel booking"
+        },
+        {
+            "method": "PATCH",
+            "path": "/bookings/:id/confirm",
+            "description": "Confirm booking (admin/service provider)"
+        },
+        {
+            "method": "POST",
+            "path": "/bookings/:id/payment",
+            "description": "Process payment for booking"
+        }
+    ],
+    "requirements": [
+        "User authentication",
+        "Real-time availability checking",
+        "Prevent double bookings",
+        "Booking confirmation emails",
+        "Cancellation policy enforcement",
+        "Payment integration (Stripe/PayPal)",
+        "Refund processing for cancellations",
+        "Time zone handling"
+    ],
+    "features": [
+        "Calendar view of bookings",
+        "Recurring bookings support",
+        "Waitlist management",
+        "Reminder notifications (24hr, 1hr before)",
+        "Service duration customization",
+        "Customer notes and special requests",
+        "Rating and review after completion",
+        "Admin dashboard for managing all bookings",
+        "Block out dates/times",
+        "Multi-service booking in one transaction"
+    ],
+    "database": "PostgreSQL with Sequelize"
+}

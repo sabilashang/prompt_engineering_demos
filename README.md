@@ -4,7 +4,7 @@ A comprehensive collection of prompt engineering demonstrations showcasing pract
 
 ## 📋 Overview
 
-This repository contains five interactive demos that demonstrate how to leverage Large Language Models (LLMs) via the OpenRouter API for various development tasks:
+This repository contains five interactive demos that demonstrate how to leverage Large Language Models (LLMs) for various development tasks:
 
 1. **ML Data Cleaning** - Automated CSV data cleaning and standardization
 2. **ML Model Evaluation** - Intelligent model performance analysis
@@ -18,7 +18,7 @@ This repository contains five interactive demos that demonstrate how to leverage
 
 - **Python 3.8+** (for ML demos and Note Summarizer)
 - **Node.js 14+** (for Mobile/Backend demos and Dashboard)
-- **OpenRouter API Key** ([Get one here](https://openrouter.ai/))
+- **API Key** (Configure in `.env` file)
 
 ### Installation Steps
 
@@ -38,7 +38,7 @@ This repository contains five interactive demos that demonstrate how to leverage
    touch .env
    ```
    
-   Then edit `.env` and add your OpenRouter API key:
+   Then edit `.env` and add your API key:
    ```env
    OPENROUTER_API_KEY=your_actual_key_here
    OPENROUTER_API_URL=https://openrouter.ai/api/v1/chat/completions
@@ -203,11 +203,11 @@ python main.py
 
 Visit **http://localhost:5002** in your browser.
 
-## 🔌 OpenRouter API Integration
+## 🔌 API Integration
 
-All demos use the OpenRouter API with the following configuration:
+All demos use AI models with the following configuration:
 
-**Endpoint:** `https://openrouter.ai/api/v1/chat/completions`
+**Endpoint:** Configured via `.env` file
 
 **Default Model:** `mistralai/mistral-7b-instruct` (free, open-source model - can be changed in `.env`)
 
@@ -281,7 +281,7 @@ prompt_engineering_demos/
 
 ## 📚 Learn More
 
-- [OpenRouter Documentation](https://openrouter.ai/docs)
+- [API Documentation](https://docs.openai.com/)
 - [Prompt Engineering Guide](https://www.promptingguide.ai/)
 - Each demo folder contains its own detailed README
 

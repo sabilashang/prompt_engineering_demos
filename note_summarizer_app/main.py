@@ -1,6 +1,9 @@
 """
 Note Summarizer App - Flask Web Application
 Interactive text summarization using LLM
+
+Creator: Sabilashan Ganeshan
+GitHub: https://github.com/sabilashang
 """
 
 import os
@@ -109,7 +112,7 @@ def summarize():
     if not OPENROUTER_API_KEY or OPENROUTER_API_KEY == 'your_openrouter_api_key_here':
         return jsonify({
             'success': False,
-            'error': 'OpenRouter API key not configured. Please set OPENROUTER_API_KEY in .env file'
+            'error': 'API key not configured. Please set OPENROUTER_API_KEY in .env file'
         }), 500
 
     # Get data from request

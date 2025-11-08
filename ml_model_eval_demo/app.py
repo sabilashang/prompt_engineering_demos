@@ -1,6 +1,9 @@
 """
 ML Model Evaluation Demo - Flask Web App
 Simple web interface for model evaluation
+
+Creator: Sabilashan Ganeshan
+GitHub: https://github.com/sabilashang
 """
 
 import os

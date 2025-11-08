@@ -1,6 +1,9 @@
 /**
  * Backend API Generation Demo - Node.js Script
  * Generates Express.js REST API routes using LLM
+ * 
+ * Creator: Sabilashan Ganeshan
+ * GitHub: https://github.com/sabilashang
  */
 
 const fs = require('fs');
@@ -150,7 +153,7 @@ async function main() {
 
   // Check API key
   if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === 'your_openrouter_api_key_here') {
-    console.error('\n❌ Error: OpenRouter API key not configured');
+    console.error('\n❌ Error: API key not configured');
     console.error(`📁 Looking for .env file at: ${envPath}`);
     console.error(`🔍 File exists: ${fs.existsSync(envPath) ? 'YES' : 'NO'}`);
     console.error(`🔑 API Key loaded: ${OPENROUTER_API_KEY ? 'YES (but invalid)' : 'NO'}`);
@@ -162,7 +165,7 @@ async function main() {
   }
 
   console.log(`\n🔑 API Key: Configured`);
-  console.log(`🤖 Model: ${DEFAULT_MODEL}`);
+  console.log(`🤖 Model: Configured`);
 
   try {
     // Read route specification
@@ -177,7 +180,7 @@ async function main() {
     const prompt = createPromptFromSpec(routeSpec);
     console.log(`✅ Prompt created (${prompt.length} characters)`);
 
-    console.log('\n📡 Generating API code via OpenRouter API...');
+    console.log('\n📡 Generating API code...');
     console.log('⏳ This may take 10-30 seconds...\n');
 
     // Generate API code

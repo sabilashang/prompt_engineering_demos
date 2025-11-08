@@ -1,6 +1,9 @@
 """
 ML Data Cleaning Demo - Flask API
 Uploads a CSV, cleans it using LLM, and returns the cleaned version
+
+Creator: Sabilashan Ganeshan
+GitHub: https://github.com/sabilashang
 """
 
 import os
@@ -114,7 +117,7 @@ def clean_csv():
     # Check if API key is configured
     if not OPENROUTER_API_KEY or OPENROUTER_API_KEY == 'your_openrouter_api_key_here':
         return jsonify({
-            'error': 'OpenRouter API key not configured. Please set OPENROUTER_API_KEY in .env file'
+            'error': 'API key not configured. Please set OPENROUTER_API_KEY in .env file'
         }), 500
 
     # Check if file is in request

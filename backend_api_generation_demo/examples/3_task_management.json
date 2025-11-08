@@ -1,0 +1,66 @@
+{
+    "resource": "Task Management",
+    "description": "Team task and project management system",
+    "routes": [
+        {
+            "method": "GET",
+            "path": "/tasks",
+            "description": "List all tasks with filters (assigned to me, by status, by project)"
+        },
+        {
+            "method": "POST",
+            "path": "/tasks",
+            "description": "Create a new task"
+        },
+        {
+            "method": "GET",
+            "path": "/tasks/:id",
+            "description": "Get task details with comments and attachments"
+        },
+        {
+            "method": "PUT",
+            "path": "/tasks/:id",
+            "description": "Update task information"
+        },
+        {
+            "method": "DELETE",
+            "path": "/tasks/:id",
+            "description": "Delete task"
+        },
+        {
+            "method": "PATCH",
+            "path": "/tasks/:id/status",
+            "description": "Update task status (todo, in-progress, done)"
+        },
+        {
+            "method": "POST",
+            "path": "/tasks/:id/comments",
+            "description": "Add comment to task"
+        },
+        {
+            "method": "POST",
+            "path": "/tasks/:id/assign",
+            "description": "Assign task to user"
+        }
+    ],
+    "requirements": [
+        "User authentication required",
+        "Task assignment to team members",
+        "Due date and reminder system",
+        "Priority levels (low, medium, high, urgent)",
+        "Status tracking (todo, in-progress, review, done)",
+        "File attachment support (up to 10MB)",
+        "Email notifications for assignments and updates"
+    ],
+    "features": [
+        "Task categories and labels",
+        "Subtasks support",
+        "Time tracking",
+        "Comments and mentions (@username)",
+        "Activity history/audit log",
+        "Filter by assignee, status, priority, due date",
+        "Sort by due date, priority, created date",
+        "Bulk operations (assign, update status)"
+    ],
+    "database": "MongoDB with Mongoose"
+}
