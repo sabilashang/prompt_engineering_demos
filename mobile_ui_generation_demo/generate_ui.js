@@ -5,12 +5,15 @@
 
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config({ path: '../.env' });
 
-// OpenRouter API Configuration
+// Load .env from parent directory (works regardless of where script is run from)
+const envPath = path.resolve(__dirname, '../.env');
+require('dotenv').config({ path: envPath });
+
+// OpenRouter API Configuration - All values from .env only
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const OPENROUTER_API_URL = process.env.OPENROUTER_API_URL || 'https://openrouter.ai/api/v1/chat/completions';
-const DEFAULT_MODEL = process.env.DEFAULT_MODEL || 'mistralai/mistral-7b-instruct';
+const OPENROUTER_API_URL = process.env.OPENROUTER_API_URL;
+const DEFAULT_MODEL = process.env.DEFAULT_MODEL;
 
 // Ensure output directory exists
 const OUTPUT_DIR = path.join(__dirname, 'output');
@@ -121,7 +124,13 @@ async function main() {
     // Check API key
     if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === 'your_openrouter_api_key_here') {
         console.error('\n❌ Error: OpenRouter API key not configured');
-        console.error('Please set OPENROUTER_API_KEY in ../.env file');
+        console.error(`📁 Looking for .env file at: ${envPath}`);
+        console.error(`🔍 File exists: ${fs.existsSync(envPath) ? 'YES' : 'NO'}`);
+        console.error(`🔑 API Key loaded: ${OPENROUTER_API_KEY ? 'YES (but invalid)' : 'NO'}`);
+        console.error('\nPlease ensure:');
+        console.error('1. .env file exists at the path shown above');
+        console.error('2. OPENROUTER_API_KEY is set in the .env file');
+        console.error('3. The API key is not the placeholder value');
         process.exit(1);
     }
 

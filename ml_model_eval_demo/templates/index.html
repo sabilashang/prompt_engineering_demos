@@ -153,6 +153,68 @@
         .error.show {
             display: block;
         }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            appearance: none;
+            transition: border-color 0.3s;
+        }
+
+        select:hover {
+            border-color: #f5576c;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #f5576c;
+        }
+
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .dataset-info {
+            background: #f0f7ff;
+            border-left: 4px solid #f5576c;
+            padding: 12px 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .dataset-info strong {
+            color: #333;
+        }
     </style>
 </head>
 
@@ -161,7 +223,21 @@
         <h1>📊 ML Model Evaluation</h1>
         <p class="subtitle">Analyze model performance with AI-powered insights</p>
 
-        <button class="btn" id="evaluateBtn">Evaluate Model</button>
+        <div class="form-group">
+            <label class="form-label" for="datasetSelect">Select Dataset:</label>
+            <div class="select-wrapper">
+                <select id="datasetSelect">
+                    <option value="">Loading datasets...</option>
+                </select>
+            </div>
+            <div class="dataset-info" id="datasetInfo" style="display: none;">
+                <strong>Model:</strong> <span id="infoModel"></span><br>
+                <strong>Task:</strong> <span id="infoDataset"></span><br>
+                <strong>Samples:</strong> <span id="infoSamples"></span>
+            </div>
+        </div>
+
+        <button class="btn" id="evaluateBtn" disabled>Evaluate Model</button>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
@@ -178,6 +254,11 @@
     </div>
 
     <script>
+        const datasetSelect = document.getElementById('datasetSelect');
+        const datasetInfo = document.getElementById('datasetInfo');
+        const infoModel = document.getElementById('infoModel');
+        const infoDataset = document.getElementById('infoDataset');
+        const infoSamples = document.getElementById('infoSamples');
         const evaluateBtn = document.getElementById('evaluateBtn');
         const loading = document.getElementById('loading');
         const resultArea = document.getElementById('resultArea');
@@ -185,7 +266,67 @@
         const analysis = document.getElementById('analysis');
         const error = document.getElementById('error');
 
+        let datasets = [];
+
+        // Load available datasets on page load
+        async function loadDatasets() {
+            try {
+                const response = await fetch('/datasets');
+                const data = await response.json();
+
+                if (data.success && data.datasets.length > 0) {
+                    datasets = data.datasets;
+
+                    // Populate dropdown
+                    datasetSelect.innerHTML = data.datasets.map(ds =>
+                        `<option value="${ds.filename}">${ds.dataset} (${ds.model_name})</option>`
+                    ).join('');
+
+                    // Enable button
+                    evaluateBtn.disabled = false;
+
+                    // Show info for first dataset
+                    updateDatasetInfo();
+                } else {
+                    datasetSelect.innerHTML = '<option value="">No datasets found</option>';
+                }
+            } catch (err) {
+                datasetSelect.innerHTML = '<option value="">Error loading datasets</option>';
+                console.error('Failed to load datasets:', err);
+            }
+        }
+
+        // Update dataset info display
+        function updateDatasetInfo() {
+            const selectedFilename = datasetSelect.value;
+            const dataset = datasets.find(ds => ds.filename === selectedFilename);
+
+            if (dataset) {
+                infoModel.textContent = dataset.model_name;
+                infoDataset.textContent = dataset.dataset;
+                infoSamples.textContent = dataset.total_samples;
+                datasetInfo.style.display = 'block';
+            } else {
+                datasetInfo.style.display = 'none';
+            }
+        }
+
+        // Handle dataset selection change
+        datasetSelect.addEventListener('change', () => {
+            updateDatasetInfo();
+            resultArea.classList.remove('show');
+            error.classList.remove('show');
+        });
+
         evaluateBtn.addEventListener('click', async () => {
+            const selectedDataset = datasetSelect.value;
+
+            if (!selectedDataset) {
+                error.textContent = '❌ Please select a dataset';
+                error.classList.add('show');
+                return;
+            }
+
             evaluateBtn.disabled = true;
             loading.classList.add('show');
             resultArea.classList.remove('show');
@@ -193,7 +334,13 @@
 
             try {
                 const response = await fetch('/evaluate', {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dataset: selectedDataset
+                    })
                 });
 
                 const data = await response.json();
@@ -236,6 +383,9 @@
                 evaluateBtn.disabled = false;
             }
         });
+
+        // Load datasets when page loads
+        loadDatasets();
     </script>
 </body>
 

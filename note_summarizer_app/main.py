@@ -11,16 +11,17 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 
 # Load environment variables
-load_dotenv(dotenv_path='../.env')
+# Use absolute path to .env file (works regardless of where script is run from)
+env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path=env_path)
 
 app = Flask(__name__)
 CORS(app)
 
-# OpenRouter API Configuration
+# OpenRouter API Configuration - All values from .env only
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_API_URL = os.getenv(
-    'OPENROUTER_API_URL', 'https://openrouter.ai/api/v1/chat/completions')
-DEFAULT_MODEL = os.getenv('DEFAULT_MODEL', 'mistralai/mistral-7b-instruct')
+OPENROUTER_API_URL = os.getenv('OPENROUTER_API_URL')
+DEFAULT_MODEL = os.getenv('DEFAULT_MODEL')
 
 
 def call_openrouter_api(text, summary_type='concise'):

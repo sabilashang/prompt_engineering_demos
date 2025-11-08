@@ -4,27 +4,31 @@ Analyzes model predictions using LLM to provide evaluation summary
 """
 
 import os
+import sys
 import json
 import requests
 from dotenv import load_dotenv
 
 # Load environment variables
-load_dotenv(dotenv_path='../.env')
+# Use absolute path to .env file (works regardless of where script is run from)
+env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path=env_path)
 
-# OpenRouter API Configuration
+# OpenRouter API Configuration - All values from .env only
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_API_URL = os.getenv(
-    'OPENROUTER_API_URL', 'https://openrouter.ai/api/v1/chat/completions')
-DEFAULT_MODEL = os.getenv('DEFAULT_MODEL', 'mistralai/mistral-7b-instruct')
+OPENROUTER_API_URL = os.getenv('OPENROUTER_API_URL')
+DEFAULT_MODEL = os.getenv('DEFAULT_MODEL')
 
 
-def load_sample_results():
+def load_sample_results(filename='sample_results.json'):
     """Load sample model results from JSON file"""
     try:
-        with open('sample_results.json', 'r') as f:
+        # Use absolute path (works regardless of where script is run from)
+        sample_file = os.path.join(os.path.dirname(__file__), filename)
+        with open(sample_file, 'r') as f:
             return json.load(f)
     except FileNotFoundError:
-        print("❌ Error: sample_results.json not found")
+        print(f"❌ Error: {filename} not found at {sample_file}")
         return None
     except json.JSONDecodeError as e:
         print(f"❌ Error parsing JSON: {e}")
@@ -88,6 +92,9 @@ def calculate_local_metrics(results):
 
 def main():
     """Main execution function"""
+    # Get dataset filename from command line args, default to sample_results.json
+    filename = sys.argv[1] if len(sys.argv) > 1 else 'sample_results.json'
+
     print("=" * 60)
     print("🤖 ML Model Evaluation Demo")
     print("=" * 60)
@@ -100,10 +107,11 @@ def main():
 
     print(f"\n🔑 API Key: Configured")
     print(f"🤖 Model: {DEFAULT_MODEL}")
+    print(f"📁 Dataset: {filename}")
 
     # Load sample results
     print("\n📂 Loading sample results...")
-    results = load_sample_results()
+    results = load_sample_results(filename)
 
     if not results:
         return
@@ -138,9 +146,10 @@ please provide a detailed evaluation that includes:
         print(f"\n{evaluation}\n")
         print("=" * 60)
 
-        # Save evaluation to file
-        output_file = 'evaluation_summary.txt'
-        with open(output_file, 'w') as f:
+        # Save evaluation to file with dataset-specific name
+        base_name = filename.replace('.json', '')
+        output_file = f'{base_name}_evaluation.txt'
+        with open(output_file, 'w', encoding='utf-8') as f:
             f.write("ML Model Evaluation Summary\n")
             f.write("=" * 60 + "\n\n")
             f.write(f"Model: {results.get('model_name', 'Unknown')}\n")

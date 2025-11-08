@@ -13,7 +13,9 @@ from werkzeug.utils import secure_filename
 import io
 
 # Load environment variables
-load_dotenv(dotenv_path='../.env')
+# Use absolute path to .env file (works regardless of where script is run from)
+env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path=env_path)
 
 app = Flask(__name__)
 CORS(app)
@@ -26,11 +28,10 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
-# OpenRouter API Configuration
+# OpenRouter API Configuration - All values from .env only
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_API_URL = os.getenv(
-    'OPENROUTER_API_URL', 'https://openrouter.ai/api/v1/chat/completions')
-DEFAULT_MODEL = os.getenv('DEFAULT_MODEL', 'mistralai/mistral-7b-instruct')
+OPENROUTER_API_URL = os.getenv('OPENROUTER_API_URL')
+DEFAULT_MODEL = os.getenv('DEFAULT_MODEL')
 
 
 def allowed_file(filename):
@@ -134,13 +135,30 @@ def clean_csv():
         # Read CSV content
         csv_content = file.read().decode('utf-8')
 
-        # Default cleaning prompt
-        prompt = """Clean this CSV by:
-1. Removing rows with null/empty values
-2. Standardizing date columns to YYYY-MM-DD format
-3. Removing duplicate rows
-4. Trimming whitespace from all fields
-5. Ensuring consistent data types in each column"""
+        # Default cleaning prompt - PROPER ML data cleaning
+        prompt = """Clean this CSV data using proper ML data cleaning techniques:
+
+1. Handle Missing Values:
+   - For missing numeric values (age): Replace with the median age from available data
+   - For missing email: Replace with "unknown@example.com" or leave as empty string
+   - For missing dates: Replace with "0000-00-00" or the median date
+   - For missing status: Replace with "unknown"
+   - DO NOT delete rows with missing values - preserve all records!
+
+2. Remove Duplicate Rows:
+   - Keep only one copy of exact duplicate rows
+   - Keep all rows that are not exact duplicates
+
+3. Standardize Formats:
+   - Convert all dates to YYYY-MM-DD format (e.g., "2024-01-05")
+   - Trim all whitespace from all fields
+   - Ensure all text fields are properly formatted
+
+4. Fix Data Types:
+   - Convert "null" text to actual numeric value (use median) or empty string
+   - Ensure numeric fields contain only numbers
+
+5. Return ALL cleaned rows (don't delete data just because it has missing values)"""
 
         # Call API to clean data
         cleaned_csv = call_openrouter_api(prompt, csv_content)

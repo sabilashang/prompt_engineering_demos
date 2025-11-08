@@ -11,27 +11,95 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 
 # Load environment variables
-load_dotenv(dotenv_path='../.env')
+# Use absolute path to .env file (works regardless of where script is run from)
+env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path=env_path)
 
 app = Flask(__name__)
 CORS(app)
 
-# OpenRouter API Configuration
+# OpenRouter API Configuration - All values from .env only
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_API_URL = os.getenv(
-    'OPENROUTER_API_URL', 'https://openrouter.ai/api/v1/chat/completions')
-DEFAULT_MODEL = os.getenv('DEFAULT_MODEL', 'mistralai/mistral-7b-instruct')
+OPENROUTER_API_URL = os.getenv('OPENROUTER_API_URL')
+DEFAULT_MODEL = os.getenv('DEFAULT_MODEL')
 
 
-def load_sample_results():
+def load_sample_results(filename='sample_results.json'):
     """Load sample model results from JSON file"""
     try:
-        with open('sample_results.json', 'r') as f:
+        # Use absolute path (works regardless of where script is run from)
+        sample_file = os.path.join(os.path.dirname(__file__), filename)
+        with open(sample_file, 'r') as f:
             return json.load(f)
     except FileNotFoundError:
         return None
     except json.JSONDecodeError:
         return None
+
+
+def list_available_datasets():
+    """List all available sample result files"""
+    datasets = []
+    dir_path = os.path.dirname(__file__)
+    for file in os.listdir(dir_path):
+        if file.startswith('sample_results') and file.endswith('.json'):
+            try:
+                data = load_sample_results(file)
+                if data:
+                    datasets.append({
+                        'filename': file,
+                        'model_name': data.get('model_name', 'Unknown'),
+                        'dataset': data.get('dataset', 'Unknown'),
+                        'total_samples': data.get('total_samples', len(data.get('predictions', [])))
+                    })
+            except:
+                pass
+    return datasets
+
+
+def calculate_metrics(predictions, true_labels):
+    """Calculate accuracy, precision, recall, and F1 score from predictions and true labels"""
+    if len(predictions) != len(true_labels):
+        raise ValueError(
+            "Predictions and true_labels must have the same length")
+
+    # Calculate confusion matrix components
+    true_positives = sum(1 for pred, true in zip(
+        predictions, true_labels) if pred == 1 and true == 1)
+    true_negatives = sum(1 for pred, true in zip(
+        predictions, true_labels) if pred == 0 and true == 0)
+    false_positives = sum(1 for pred, true in zip(
+        predictions, true_labels) if pred == 1 and true == 0)
+    false_negatives = sum(1 for pred, true in zip(
+        predictions, true_labels) if pred == 0 and true == 1)
+
+    total = len(predictions)
+
+    # Calculate metrics
+    accuracy = (true_positives + true_negatives) / total if total > 0 else 0
+
+    precision = true_positives / \
+        (true_positives + false_positives) if (true_positives +
+                                               false_positives) > 0 else 0
+
+    recall = true_positives / \
+        (true_positives + false_negatives) if (true_positives +
+                                               false_negatives) > 0 else 0
+
+    f1_score = 2 * (precision * recall) / (precision +
+                                           recall) if (precision + recall) > 0 else 0
+
+    return {
+        'accuracy': accuracy,
+        'precision': precision,
+        'recall': recall,
+        'f1_score': f1_score,
+        'true_positives': true_positives,
+        'true_negatives': true_negatives,
+        'false_positives': false_positives,
+        'false_negatives': false_negatives,
+        'total_samples': total
+    }
 
 
 def call_openrouter_api(prompt, data):
@@ -97,34 +165,78 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/datasets', methods=['GET'])
+def get_datasets():
+    """Get list of available datasets"""
+    try:
+        datasets = list_available_datasets()
+        return jsonify({
+            'success': True,
+            'datasets': datasets
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 @app.route('/evaluate', methods=['POST'])
 def evaluate():
     """Evaluate model results"""
     try:
+        # Get dataset filename from request, default to sample_results.json
+        data = request.get_json() or {}
+        filename = data.get('dataset', 'sample_results.json')
+
         # Load sample results
-        results = load_sample_results()
+        results = load_sample_results(filename)
         if not results:
             return jsonify({
                 'success': False,
                 'error': 'Sample results file not found'
             }), 404
 
-        # Calculate basic metrics
-        accuracy = results.get('accuracy', 0)
-        precision = results.get('precision', 0)
-        recall = results.get('recall', 0)
-        f1_score = results.get('f1_score', 0)
+        # Extract predictions and true labels
+        predictions = results.get('predictions', [])
+        true_labels = results.get('true_labels', [])
 
-        # Create evaluation prompt
-        prompt = f"""Analyze these model evaluation metrics:
+        if not predictions or not true_labels:
+            return jsonify({
+                'success': False,
+                'error': 'Missing predictions or true_labels in results file'
+            }), 400
+
+        # Calculate metrics from predictions and true labels
+        metrics = calculate_metrics(predictions, true_labels)
+
+        accuracy = metrics['accuracy']
+        precision = metrics['precision']
+        recall = metrics['recall']
+        f1_score = metrics['f1_score']
+
+        # Create evaluation prompt with detailed information
+        prompt = f"""Analyze this ML model's performance:
+
+Model: {results.get('model_name', 'Unknown')}
+Dataset: {results.get('dataset', 'Unknown')}
+Total Samples: {metrics['total_samples']}
+
+Metrics:
 - Accuracy: {accuracy:.2%}
 - Precision: {precision:.2%}
 - Recall: {recall:.2%}
 - F1 Score: {f1_score:.2%}
 
+Confusion Matrix:
+- True Positives: {metrics['true_positives']}
+- True Negatives: {metrics['true_negatives']}
+- False Positives: {metrics['false_positives']}
+- False Negatives: {metrics['false_negatives']}
+
 Provide a clear, concise evaluation summary explaining:
 1. Overall model performance
-2. Strengths and weaknesses
+2. Strengths and weaknesses based on the confusion matrix
 3. Recommendations for improvement"""
 
         # Call API for analysis
@@ -136,7 +248,11 @@ Provide a clear, concise evaluation summary explaining:
                 'accuracy': accuracy,
                 'precision': precision,
                 'recall': recall,
-                'f1_score': f1_score
+                'f1_score': f1_score,
+                'true_positives': metrics['true_positives'],
+                'true_negatives': metrics['true_negatives'],
+                'false_positives': metrics['false_positives'],
+                'false_negatives': metrics['false_negatives']
             },
             'analysis': analysis
         })
